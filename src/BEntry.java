@@ -4,11 +4,11 @@ import java.util.List;
 /**
  * Created by paanir on 11/16/17.
  */
-public class Data {
+public class BEntry {
     private double key;
     private List<String> values;
 
-    public Data(double key) {
+    public BEntry(double key) {
         this.key = key;
         this.values = new ArrayList<>();
     }
@@ -27,5 +27,14 @@ public class Data {
 
     public void setValues(List<String> values) {
         this.values = values;
+    }
+
+    @Override
+    public String toString() {
+        List<String> l = new ArrayList<>();
+        for (String value : values) {
+            l.add("(" + key + "," + value + ")");
+        }
+        return String.join(",", l);
     }
 }

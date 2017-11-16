@@ -24,7 +24,7 @@ public class Tree {
         return null;
     }
 
-    public List<Data> search(double start, double finish) {
+    public List<BEntry> search(double start, double finish) {
         //TODO: implement this
         return null;
     }

@@ -4,14 +4,14 @@ import java.util.List;
  * Created by paanir on 11/16/17.
  */
 public class TreeNode {
-    private boolean isDataNode;
+    private boolean isDataNode; //data ndoe or index node
     private int order; //<= k (for root, order >= 2; for internal node, ceil(k/2) <= order )
     private TreeNode parentNode;
     //for index node
     private List<Double> indices; // size <= order - 1
     private List<TreeNode> children; // size <= order
     //populated for data node
-    private List<Data> dataList; //size <= order - 1
+    private List<BEntry> dataList; //size <= order - 1
     private TreeNode prev;
     private TreeNode next;
 
@@ -56,11 +56,11 @@ public class TreeNode {
         this.children = children;
     }
 
-    public List<Data> getDataList() {
+    public List<BEntry> getDataList() {
         return dataList;
     }
 
-    public void setDataList(List<Data> dataList) {
+    public void setDataList(List<BEntry> dataList) {
         this.dataList = dataList;
     }
 
