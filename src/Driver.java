@@ -26,10 +26,13 @@ public class Driver {
                 System.out.println(String.join(",", values));
             } else if (StringUtils.isSearchRange(line)) {
                 double[] range = StringUtils.getSearchRange(line);
-                List<String> bEntries = tree.search(range[0], range[1]).stream().map(BEntry::toString).collect(Collectors.toList());
+                List<String> bEntries = tree.search(range[0], range[1])
+                        .stream()
+                        .map(BEntry::toString)
+                        .collect(Collectors.toList());
                 System.out.println(String.join(",", bEntries));
             } else
-                throw new InvalidInputException(line);
+                throw new InvalidInputException(line + " is not a valid input");
         }
     }
 }
