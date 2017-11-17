@@ -6,7 +6,7 @@ import java.util.List;
  */
 public class TreeNode {
     private boolean isDataNode; //data node or index node
-    private int size; //<= k-1
+    private int size; //size of indices/dataList of an indexnode/datanode, <= k-1
     private TreeNode parentNode;
     //for index node
     private List<Double> indices; // size <= k - 1

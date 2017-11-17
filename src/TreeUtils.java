@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,42 +40,27 @@ public class TreeUtils {
     create a IndexNode
      */
     public static TreeNode createIndexNode(int size, TreeNode parentNode, double index, List<TreeNode> children) {
-        //TODO: Implement this
-        return null;
+        //TODO: Remove children, parentNode as always null for a new index node?
+        List<Double> indices = new ArrayList<>();
+        indices.add(index);
+        TreeNode in = new TreeNode(false);
+        in.setSize(size);
+        in.setIndices(indices);
+        in.setChildren(children);
+        return in;
     }
 
     /*
     create a DataNode
      */
     public static TreeNode createDataNode(int size, TreeNode parentNode, List<BEntry> dataList, TreeNode prev, TreeNode next) {
-        //TODO: Implement this
-        return null;
-    }
-
-    /*
-    merge function (key, TreeNode, parentNode)
-    return void
-    -  check parent is null or not
-    if parent is non-null
-    -  add key sortedly to indexlist at index i
-    -  add TreeNode to children at index i + 1
-    -  check for overfull
-    -  if not overfull, we are done
-    -  if overfull,
-    -  split indexList in half
-    -  split children into half (make sure it is in line with cut at indexList - odd/even lengths etc)
-    -  Keep lower indexList and lower children in current node
-    -  remove first element of indexList. That would be the new key. make a TreeNode (IndexNode)
-     with the leftover indexList and the upper children as children
-    - pass key, TreeNode and parent node recursively
-    if parent is null
-    - Make new root which will be index node
-    -- indexList = only 1 element which is key
-    -- children = prepend the current root to the children list
-    TADAAAA
-     */
-
-    public static void merge(TreeNode treeNode, TreeNode newNode) {
-        //TODO: Implement this
+        //TODO: Remove prev, next as always null?
+        TreeNode dn = new TreeNode(true);
+        dn.setSize(size);
+        dn.setParentNode(parentNode);
+        dn.setDataList(dataList);
+        dn.setPrev(prev);
+        dn.setNext(next);
+        return dn;
     }
 }
