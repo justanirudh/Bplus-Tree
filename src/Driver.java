@@ -21,7 +21,7 @@ public class Driver {
             fr = new FileReader(FILENAME);
             br = new BufferedReader(fr);
 
-            int k = Integer.parseInt(br.readLine());
+            int k = Integer.parseInt(br.readLine().trim());
             Tree tree = new Tree(k);
 
             String line;

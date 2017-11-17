@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,6 +57,12 @@ public class TreeNode {
     }
 
     public void setChildren(List<TreeNode> children) {
+        this.children = children;
+    }
+
+    public void setChild(TreeNode child) {
+        List<TreeNode> children = new ArrayList<>();
+        children.add(child);
         this.children = children;
     }
 

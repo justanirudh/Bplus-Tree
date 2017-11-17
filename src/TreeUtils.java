@@ -36,6 +36,22 @@ public class TreeUtils {
     }
 
     /*
+    create a IndexNode
+     */
+    public static TreeNode createIndexNode(int size, TreeNode parentNode, double index, List<TreeNode> children) {
+        //TODO: Implement this
+        return null;
+    }
+
+    /*
+    create a DataNode
+     */
+    public static TreeNode createDataNode(int size, TreeNode parentNode, List<BEntry> dataList, TreeNode prev, TreeNode next) {
+        //TODO: Implement this
+        return null;
+    }
+
+    /*
     merge function (key, TreeNode, parentNode)
     return void
     -  check parent is null or not
@@ -57,4 +73,8 @@ public class TreeUtils {
     -- children = prepend the current root to the children list
     TADAAAA
      */
+
+    public static void merge(TreeNode treeNode, TreeNode newNode) {
+        //TODO: Implement this
+    }
 }
