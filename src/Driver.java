@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class Driver {
     public static void main(String[] args) {
 
-        final String FILENAME = "/Users/paanir/B+Tree/input.txt";
+        final String FILENAME = "/Users/paanir/B+Tree/input3.txt";
         BufferedReader br = null;
         FileReader fr = null;
 
@@ -29,10 +29,12 @@ public class Driver {
                 if (StringUtils.isInsert(line)) { //insert
                     BPair pair = StringUtils.getInsertPair(line);
                     tree.insert(pair.getKey(), pair.getValue());
+
                 } else if (StringUtils.isSearch(line)) { //search
                     double key = StringUtils.getSearchKey(line);
                     List<String> values = tree.search(key);
                     System.out.println(String.join(",", values));
+
                 } else if (StringUtils.isSearchRange(line)) { //search range
                     double[] range = StringUtils.getSearchRange(line);
                     List<String> bEntries = tree.search(range[0], range[1])

@@ -18,6 +18,9 @@ public class TreeNode {
 
     public TreeNode(boolean isDataNode) {
         this.isDataNode = isDataNode;
+        indices = new ArrayList<>();
+        children = new ArrayList<>();
+        dataList = new ArrayList<>();
     }
 
     public int getSize() {
