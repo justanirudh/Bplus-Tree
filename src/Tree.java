@@ -28,14 +28,13 @@ public class Tree {
     - Make new root which will be index node
     -- indexList = only 1 element which is key
     -- children = prepend the current root to the children list
-    TADAAAA
+    TADAAAA!
      */
 
     private void merge(TreeNode treeNode, TreeNode newNode) {
         //new node is an index node with a singleton index list and children list (that can have indexnodes or datanodes)
         //treeNode can be either datanode or index node
         if (treeNode == null) {
-            //newNode will be the new root
             /*
             1. Prepend children list of newNode with treeNode
             2. make newNode as the new root

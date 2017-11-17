@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -11,8 +12,11 @@ public class TreeUtils {
     if key is not in indices, it returns the index of the largest element smaller than key
      */
     private static int searchIndexList(List<Double> indices, double key) {
-        //TODO: Implement this
-        return -1;
+        int index = Collections.binarySearch(indices, key);
+        if (index >= 0)
+            return index;
+        else
+            return -index - 2;
     }
 
     /*
