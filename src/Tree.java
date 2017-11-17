@@ -30,7 +30,6 @@ public class Tree {
     -- children = prepend the current root to the children list
     TADAAAA!
      */
-
     private void merge(TreeNode treeNode, TreeNode newNode) {
         //new node is an index node with a singleton index list and children list (that can have indexnodes or datanodes)
         //treeNode can be either datanode or index node

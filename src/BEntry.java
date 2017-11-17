@@ -8,9 +8,11 @@ public class BEntry {
     private double key;
     private List<String> values;
 
-    public BEntry(double key) {
+    public BEntry(double key, String value) {
         this.key = key;
-        this.values = new ArrayList<>();
+        List<String> values = new ArrayList<>();
+        values.add(value);
+        this.values = values;
     }
 
     public double getKey() {

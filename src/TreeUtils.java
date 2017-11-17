@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by paanir on 11/16/17.
@@ -24,7 +25,17 @@ public class TreeUtils {
     if key already exists, prepend the value to the BEntry's value list
      */
     public static void insertInNode(TreeNode dataNode, double key, String value) {
-        //TODO: Implement this
+        List<BEntry> dataList = dataNode.getDataList();
+        int index = Collections.binarySearch(dataList
+                .stream()
+                .map(BEntry::getKey)
+                .collect(Collectors.toList()), key);
+        if (index >= 0) { //key already exists; prepend value to the list of values
+            dataList.get(index).getValues().add(0, value);
+        } else {
+            int pos = -index - 1;
+            dataList.add(pos, new BEntry(key, value));
+        }
     }
 
     /*
