@@ -4,20 +4,27 @@ import java.util.List;
  * Created by paanir on 11/16/17.
  */
 public class TreeNode {
-    private boolean isDataNode; //data ndoe or index node
-    private int order; //<= k (for root, order >= 2; for internal node, ceil(k/2) <= order )
+    private boolean isDataNode; //data node or index node
+    private int size; //<= k-1
     private TreeNode parentNode;
     //for index node
-    private List<Double> indices; // size <= order - 1
-    private List<TreeNode> children; // size <= order
+    private List<Double> indices; // size <= k - 1
+    private List<TreeNode> children; // size <= k
     //populated for data node
-    private List<BEntry> dataList; //size <= order - 1
+    private List<BEntry> dataList; //size <= k - 1
     private TreeNode prev;
     private TreeNode next;
 
-    public TreeNode(int k, boolean isDataNode) {
+    public TreeNode(boolean isDataNode) {
         this.isDataNode = isDataNode;
-        this.order = k;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public boolean isDataNode() {
@@ -26,10 +33,6 @@ public class TreeNode {
 
     public void setDataNode(boolean dataNode) {
         isDataNode = dataNode;
-    }
-
-    public int getOrder() {
-        return order;
     }
 
     public TreeNode getParentNode() {
