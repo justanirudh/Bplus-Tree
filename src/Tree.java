@@ -37,14 +37,17 @@ public class Tree {
         //treeNode can be either datanode or index node
         if (treeNode == null) {
             /*
-            1. Prepend treeNode to children list of newNode
-            2. make newNode as the new root
+            - Prepend treeNode to children list of newNode
+            - Set parent of old root to new node
+            - make newNode as the new root
              */
             System.out.println("parentNode is null");
             newNode.getChildren().add(0, root);
+            root.setParentNode(newNode);
             root = newNode;
         } else {
             //TODO: Implement this
+            System.out.println("parentNode is not null");
         }
     }
 
