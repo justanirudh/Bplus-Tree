@@ -8,6 +8,7 @@ public class Tree {
     private TreeNode root;
 
     private Tree(int k) {
+        //first node formed is a data node
         this.root = new TreeNode(k ,true);
     }
 

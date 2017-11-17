@@ -1,5 +1,8 @@
 import exceptions.InvalidInputException;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -9,30 +12,49 @@ import java.util.stream.Collectors;
  */
 public class Driver {
     public static void main(String[] args) {
-        Scanner stdin = new Scanner(System.in);
 
-        int k = Integer.parseInt(stdin.nextLine());
+        final String FILENAME = "/Users/paanir/B+Tree/input.txt";
+        BufferedReader br = null;
+        FileReader fr = null;
 
-        Tree tree = Tree.initialize(k);
+        try {
+            fr = new FileReader(FILENAME);
+            br = new BufferedReader(fr);
 
-        while (stdin.hasNextLine()) {
-            String line = stdin.nextLine();
-            if (StringUtils.isInsert(line)) {
-                BPair pair = StringUtils.getInsertPair(line);
-                tree.insert(pair.getKey(), pair.getValue());
-            } else if (StringUtils.isSearch(line)) {
-                double key = StringUtils.getSearchKey(line);
-                List<String> values = tree.search(key);
-                System.out.println(String.join(",", values));
-            } else if (StringUtils.isSearchRange(line)) {
-                double[] range = StringUtils.getSearchRange(line);
-                List<String> bEntries = tree.search(range[0], range[1])
-                        .stream()
-                        .map(BEntry::toString)
-                        .collect(Collectors.toList());
-                System.out.println(String.join(",", bEntries));
-            } else
-                throw new InvalidInputException(line + " is not a valid input");
+            int k = Integer.parseInt(br.readLine());
+            Tree tree = Tree.initialize(k);
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (StringUtils.isInsert(line)) {
+                    BPair pair = StringUtils.getInsertPair(line);
+                    tree.insert(pair.getKey(), pair.getValue());
+                } else if (StringUtils.isSearch(line)) {
+                    double key = StringUtils.getSearchKey(line);
+                    List<String> values = tree.search(key);
+                    System.out.println(String.join(",", values));
+                } else if (StringUtils.isSearchRange(line)) {
+                    double[] range = StringUtils.getSearchRange(line);
+                    List<String> bEntries = tree.search(range[0], range[1])
+                            .stream()
+                            .map(BEntry::toString)
+                            .collect(Collectors.toList());
+                    System.out.println(String.join(",", bEntries));
+                } else
+                    throw new InvalidInputException(line + " is not a valid input");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+                if (fr != null)
+                    fr.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
