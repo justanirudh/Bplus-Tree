@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
  */
 public class TreeNode {
     private boolean isDataNode; //data node or index node
-    private int size; //size of indices/dataList of an indexnode/datanode, <= k-1
     private TreeNode parentNode;
     //for index node
     private List<Double> indices; // size <= k - 1
@@ -25,11 +24,10 @@ public class TreeNode {
     }
 
     public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
+        if(isDataNode())
+            return dataList.size();
+        else
+            return indices.size();
     }
 
     public boolean isDataNode() {
@@ -98,7 +96,7 @@ public class TreeNode {
     public String toString() {
         return "TreeNode{" +
                 "isDataNode=" + isDataNode +
-                ", size=" + size +
+                ", size=" + getSize() +
                 ", parentNode=" + parentNode +
                 ", indices=" + String.join(",", indices.stream().map(Object::toString).collect(Collectors.toList())) +
                 ", dataList=" + String.join(",", dataList.stream().map(BEntry::toString).collect(Collectors.toList())) +

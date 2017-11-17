@@ -39,7 +39,6 @@ public class TreeUtils {
         } else {
             int pos = -index - 1;
             dataList.add(pos, new BEntry(key, value));
-            dataNode.setSize(dataNode.getSize() + 1);
         }
     }
 
@@ -59,12 +58,11 @@ public class TreeUtils {
     /*
     create a IndexNode
      */
-    public static TreeNode createIndexNode(int size, TreeNode parentNode, double index, List<TreeNode> children) {
+    public static TreeNode createIndexNode(TreeNode parentNode, double index, List<TreeNode> children) {
         //TODO: Remove children, parentNode as always null for a new index node?
         List<Double> indices = new ArrayList<>();
         indices.add(index);
         TreeNode in = new TreeNode(false);
-        in.setSize(size);
         in.setIndices(indices);
         in.setChildren(children);
         return in;
@@ -73,10 +71,9 @@ public class TreeUtils {
     /*
     create a DataNode
      */
-    public static TreeNode createDataNode(int size, TreeNode parentNode, List<BEntry> dataList, TreeNode prev, TreeNode next) {
+    public static TreeNode createDataNode(TreeNode parentNode, List<BEntry> dataList, TreeNode prev, TreeNode next) {
         //TODO: Remove prev, next as always null?
         TreeNode dn = new TreeNode(true);
-        dn.setSize(size);
         dn.setParentNode(parentNode);
         dn.setDataList(dataList);
         dn.setPrev(prev);

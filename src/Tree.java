@@ -48,6 +48,7 @@ public class Tree {
         } else {
             //TODO: Implement this
             System.out.println("parentNode is not null");
+            //search the right index
         }
     }
 
@@ -77,11 +78,11 @@ public class Tree {
 
             //change current datanode with smaller list of entries
             dataNode.setDataList(head);
-            dataNode.setSize(head.size());
 
             //create a new TreeNode (Index Node) that has a child (data node)
-            TreeNode newIndexNode = TreeUtils.createIndexNode(1, null, tail.get(0).getKey(), null);
-            TreeNode newDataNode = TreeUtils.createDataNode(tail.size(), newIndexNode, tail, null, null);
+            //newIndexNode always will have singleton indices list and singleton children list
+            TreeNode newIndexNode = TreeUtils.createIndexNode(null, tail.get(0).getKey(), null);
+            TreeNode newDataNode = TreeUtils.createDataNode(newIndexNode, tail, null, null);
             newIndexNode.setChild(newDataNode); //set index node's child to be the data node
 
             //merge with parent
