@@ -26,6 +26,7 @@ public class Driver {
 
             String line;
             while ((line = br.readLine()) != null) {
+                System.out.println(line);
                 if (StringUtils.isInsert(line)) { //insert
                     BPair pair = StringUtils.getInsertPair(line);
                     tree.insert(pair.getKey(), pair.getValue());

@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by paanir on 11/16/17.
  */
 public class Tree {
+    //TODO: Add doubly linked list functionality in all data nodes
 
     private TreeNode root;
     private int k; //order or maximum number of children a node can have
@@ -35,9 +37,10 @@ public class Tree {
         //treeNode can be either datanode or index node
         if (treeNode == null) {
             /*
-            1. Prepend children list of newNode with treeNode
+            1. Prepend treeNode to children list of newNode
             2. make newNode as the new root
              */
+            System.out.println("parentNode is null");
             newNode.getChildren().add(0, root);
             root = newNode;
         } else {
@@ -51,11 +54,10 @@ public class Tree {
         this.k = k;
     }
 
-    //TODO: Add doubly linked list functionality in all data nodes
-
     public void insert(double key, String value) {
-        TreeNode dataNode = TreeUtils.searchBestNode(key, root);
-        TreeUtils.insertInNode(dataNode, key, value); //just insert
+        TreeNode dataNode = TreeUtils.searchForDataNode(key, root);
+        System.out.println("Before insertion: " + dataNode.toString());
+        TreeUtils.insertInDataNode(dataNode, key, value);
         if (dataNode.getSize() == k) { //overfull node
             /*
             1. split dataList into roughly 2 equal parts
@@ -63,24 +65,38 @@ public class Tree {
             3. Replace current node with D1. Also change its size
             4. Pass D2 as TreeNode (DataNode),key (which is the first elem of D2.datalist), parent node -> merge fn
              */
-            //split list into 2 lists
+            System.out.println("Overfull node");
+
+            //split list into 2 roughly equal lists
             List<BEntry> entries = dataNode.getDataList();
             List<BEntry> head = entries.subList(0, entries.size() / 2);
             List<BEntry> tail = entries.subList(entries.size() / 2, entries.size());
+
             //change current datanode with smaller list of entries
             dataNode.setDataList(head);
             dataNode.setSize(head.size());
-            //create D2 TreeNode (Index Node) that has a child (data node)
+
+            //create a new TreeNode (Index Node) that has a child (data node)
             TreeNode newIndexNode = TreeUtils.createIndexNode(1, null, tail.get(0).getKey(), null);
             TreeNode newDataNode = TreeUtils.createDataNode(tail.size(), newIndexNode, tail, null, null);
             newIndexNode.setChild(newDataNode); //set index node's child to be the data node
-            merge(newIndexNode, dataNode.getParentNode());
+
+            //merge with parent
+            merge(dataNode.getParentNode(), newIndexNode);
         }
     }
 
     public List<String> search(double key) {
-        //TODO: implement this
-        return null;
+        TreeNode dataNode = TreeUtils.searchForDataNode(key, root);
+        List<BEntry> dataList = dataNode.getDataList();
+        int index = TreeUtils.searchDataList(dataList, key);
+        if (index >= 0)
+            return dataList.get(index).getValues();
+        else {
+            List<String> list = new ArrayList<>();
+            list.add("Null");
+            return list;
+        }
     }
 
     public List<BEntry> search(double start, double finish) {

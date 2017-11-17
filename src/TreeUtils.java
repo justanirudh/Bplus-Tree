@@ -20,21 +20,26 @@ public class TreeUtils {
             return -index - 2;
     }
 
+    public static int searchDataList(List<BEntry> dataList, double key) {
+        return Collections.binarySearch(dataList
+                .stream()
+                .map(BEntry::getKey)
+                .collect(Collectors.toList()), key);
+    }
+
     /*
     insert the key value pair in a key-sorted fashion
     if key already exists, prepend the value to the BEntry's value list
      */
-    public static void insertInNode(TreeNode dataNode, double key, String value) {
+    public static void insertInDataNode(TreeNode dataNode, double key, String value) {
         List<BEntry> dataList = dataNode.getDataList();
-        int index = Collections.binarySearch(dataList
-                .stream()
-                .map(BEntry::getKey)
-                .collect(Collectors.toList()), key);
+        int index = searchDataList(dataList, key);
         if (index >= 0) { //key already exists; prepend value to the list of values
             dataList.get(index).getValues().add(0, value);
         } else {
             int pos = -index - 1;
             dataList.add(pos, new BEntry(key, value));
+            dataNode.setSize(dataNode.getSize() + 1);
         }
     }
 
@@ -42,12 +47,12 @@ public class TreeUtils {
     Searches for the key
     returns a node that either has the key or should have the key
      */
-    public static TreeNode searchBestNode(double key, TreeNode currNode) {
+    public static TreeNode searchForDataNode(double key, TreeNode currNode) {
         if (currNode.isDataNode())
             return currNode;
         else {
             int index = TreeUtils.searchIndexList(currNode.getIndices(), key);
-            return searchBestNode(key, currNode.getChildren().get(index + 1));
+            return searchForDataNode(key, currNode.getChildren().get(index + 1));
         }
     }
 

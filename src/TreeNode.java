@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by paanir on 11/16/17.
@@ -91,5 +92,18 @@ public class TreeNode {
 
     public void setNext(TreeNode next) {
         this.next = next;
+    }
+
+    @Override
+    public String toString() {
+        return "TreeNode{" +
+                "isDataNode=" + isDataNode +
+                ", size=" + size +
+                ", parentNode=" + parentNode +
+                ", indices=" + String.join(",", indices.stream().map(Object::toString).collect(Collectors.toList())) +
+                ", dataList=" + String.join(",", dataList.stream().map(BEntry::toString).collect(Collectors.toList())) +
+                ", prev=" + prev +
+                ", next=" + next +
+                '}';
     }
 }
