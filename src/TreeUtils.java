@@ -9,15 +9,15 @@ import java.util.stream.Collectors;
 public class TreeUtils {
 
     /*
-    if key is in indices, it returns that index
-    if key is not in indices, it returns the index of the largest element smaller than key
+    if key is in indices, it returns that idx
+    if key is not in indices, it returns the idx of the largest element smaller than key
      */
-    private static int searchIndexList(List<Double> indices, double key) {
-        int index = Collections.binarySearch(indices, key);
-        if (index >= 0)
-            return index;
+    public static int searchIdxList(List<Double> indices, double key) {
+        int idx = Collections.binarySearch(indices, key);
+        if (idx >= 0)
+            return idx;
         else
-            return -index - 2;
+            return -idx - 2;
     }
 
     public static int searchDataList(List<BEntry> dataList, double key) {
@@ -33,11 +33,11 @@ public class TreeUtils {
      */
     public static void insertInDataNode(TreeNode dataNode, double key, String value) {
         List<BEntry> dataList = dataNode.getDataList();
-        int index = searchDataList(dataList, key);
-        if (index >= 0) { //key already exists; prepend value to the list of values
-            dataList.get(index).getValues().add(0, value);
+        int idx = searchDataList(dataList, key);
+        if (idx >= 0) { //key already exists; prepend value to the list of values
+            dataList.get(idx).getValues().add(0, value);
         } else {
-            int pos = -index - 1;
+            int pos = -idx - 1;
             dataList.add(pos, new BEntry(key, value));
         }
     }
@@ -50,18 +50,18 @@ public class TreeUtils {
         if (currNode.isDataNode())
             return currNode;
         else {
-            int index = TreeUtils.searchIndexList(currNode.getIndices(), key);
-            return searchForDataNode(key, currNode.getChildren().get(index + 1));
+            int idx = TreeUtils.searchIdxList(currNode.getIndices(), key);
+            return searchForDataNode(key, currNode.getChildren().get(idx + 1));
         }
     }
 
     /*
-    create a IndexNode
+    create a IdxNode
      */
-    public static TreeNode createIndexNode(TreeNode parentNode, double index, List<TreeNode> children) {
-        //TODO: Remove children, parentNode as always null for a new index node?
+    public static TreeNode createIdxNode(TreeNode parentNode, double idx, List<TreeNode> children) {
+        //TODO: Remove children, parentNode as always null for a new idx node?
         List<Double> indices = new ArrayList<>();
-        indices.add(index);
+        indices.add(idx);
         TreeNode in = new TreeNode(false);
         in.setIndices(indices);
         in.setChildren(children);

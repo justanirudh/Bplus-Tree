@@ -15,40 +15,38 @@ public class Tree {
     return void
     -  check parent is null or not
     if parent is non-null
-    -  add key sortedly to indexlist at index i
-    -  add TreeNode to children at index i + 1
+    -  add key sortedly to idxlist at idx i
+    -  add TreeNode to children at idx i + 1
     -  check for overfull
     -  if not overfull, we are done
     -  if overfull,
-    -  split indexList in half
-    -  split children into half (make sure it is in line with cut at indexList - odd/even lengths etc)
-    -  Keep lower indexList and lower children in current node
-    -  remove first element of indexList. That would be the new key. make a TreeNode (IndexNode)
-     with the leftover indexList and the upper children as children
+    -  split idxList in half
+    -  split children into half (make sure it is in line with cut at idxList - odd/even lengths etc)
+    -  Keep lower idxList and lower children in current node
+    -  remove first element of idxList. That would be the new key. make a TreeNode (IdxNode)
+     with the leftover idxList and the upper children as children
     - pass key, TreeNode and parent node recursively
     if parent is null
-    - Make new root which will be index node
-    -- indexList = only 1 element which is key
+    - Make new root which will be idx node
+    -- idxList = only 1 element which is key
     -- children = prepend the current root to the children list
     TADAAAA!
      */
-    private void merge(TreeNode treeNode, TreeNode newNode) {
-        //new node is an index node with a singleton index list and children list (that can have indexnodes or datanodes)
-        //treeNode can be either datanode or index node
-        if (treeNode == null) {
+    private void merge(TreeNode treeIdxNode, TreeNode newIdxNode) {
+        //new node is an idx node with a singleton idx list and children list (that can have idxnodes or datanodes)
+        //treeNode can be either datanode or idx node
+        if (treeIdxNode == null) {
             /*
             - Prepend treeNode to children list of newNode
             - Set parent of old root to new node
             - make newNode as the new root
              */
             System.out.println("parentNode is null");
-            newNode.getChildren().add(0, root);
-            root.setParentNode(newNode);
-            root = newNode;
+            newIdxNode.getChildren().add(0, root);
+            root.setParentNode(newIdxNode);
+            root = newIdxNode;
         } else {
-            //TODO: Implement this
-            System.out.println("parentNode is not null");
-            //search the right index
+
         }
     }
 
@@ -73,29 +71,29 @@ public class Tree {
 
             //split list into 2 roughly equal lists
             List<BEntry> entries = dataNode.getDataList();
-            List<BEntry> head = entries.subList(0, entries.size() / 2);
-            List<BEntry> tail = entries.subList(entries.size() / 2, entries.size());
+            List<BEntry> head = new ArrayList<>(entries.subList(0, entries.size() / 2));
+            List<BEntry> tail = new ArrayList<>(entries.subList(entries.size() / 2, entries.size()));
 
             //change current datanode with smaller list of entries
             dataNode.setDataList(head);
 
-            //create a new TreeNode (Index Node) that has a child (data node)
-            //newIndexNode always will have singleton indices list and singleton children list
-            TreeNode newIndexNode = TreeUtils.createIndexNode(null, tail.get(0).getKey(), null);
-            TreeNode newDataNode = TreeUtils.createDataNode(newIndexNode, tail, null, null);
-            newIndexNode.setChild(newDataNode); //set index node's child to be the data node
+            //create a new TreeNode (Idx Node) that has a child (data node)
+            //newIdxNode always will have singleton indices list and singleton children list
+            TreeNode newIdxNode = TreeUtils.createIdxNode(null, tail.get(0).getKey(), null);
+            TreeNode newDataNode = TreeUtils.createDataNode(newIdxNode, tail, null, null);
+            newIdxNode.setChild(newDataNode); //set idx node's child to be the data node
 
             //merge with parent
-            merge(dataNode.getParentNode(), newIndexNode);
+            merge(dataNode.getParentNode(), newIdxNode);
         }
     }
 
     public List<String> search(double key) {
         TreeNode dataNode = TreeUtils.searchForDataNode(key, root);
         List<BEntry> dataList = dataNode.getDataList();
-        int index = TreeUtils.searchDataList(dataList, key);
-        if (index >= 0)
-            return dataList.get(index).getValues();
+        int idx = TreeUtils.searchDataList(dataList, key);
+        if (idx >= 0)
+            return dataList.get(idx).getValues();
         else {
             List<String> list = new ArrayList<>();
             list.add("Null");

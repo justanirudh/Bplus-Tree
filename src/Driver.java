@@ -23,6 +23,7 @@ public class Driver {
             int k = Integer.parseInt(br.readLine().trim());
             Tree tree = new Tree(k);
 
+            //TODO: all output should go to a file named output_file.txt
             String line;
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
@@ -42,8 +43,8 @@ public class Driver {
                             .map(BEntry::toString)
                             .collect(Collectors.toList());
                     System.out.println(String.join(",", bEntries));
-                } else
-                    throw new InvalidInputException(line + " is not a valid input");
+                } /*else
+                    throw new InvalidInputException(line + " is not a valid input");*/
             }
 
         } catch (IOException e) {
