@@ -12,13 +12,12 @@ public class TreeUtils {
     /*
     add new entry to linked list
      */
-    private static void insertInLinkedList(BEntry currEntry, BEntry newEntry){
+    private static void insertInLinkedList(BEntry currEntry, BEntry newEntry) {
         BEntry prevEntry = currEntry.getPrev();
-        if(prevEntry == null){
+        if (prevEntry == null) {
             currEntry.setPrev(newEntry);
             newEntry.setNext(currEntry);
-        }
-        else{
+        } else {
             prevEntry.setNext(newEntry);
             newEntry.setPrev(prevEntry);
             currEntry.setPrev(newEntry);
@@ -61,10 +60,40 @@ public class TreeUtils {
             BEntry newEntry = new BEntry(key, value);
             //add to per datanode array
             dataList.add(pos, newEntry);
+
+            //add to Linked List
+            BEntry curr = dataList.get(pos);
+            if (pos - 1 >= 0 && pos + 1 < dataNode.getSize()) {//added in the middle of list
+                BEntry prev = dataList.get(pos - 1);
+                BEntry next = dataList.get(pos + 1);
+                curr.setPrev(prev);
+                curr.setNext(next);
+                prev.setNext(curr);
+                next.setPrev(curr);
+            } else if (pos - 1 >= 0 && pos + 1 == dataNode.getSize()) { //added at the end of a list
+                BEntry prev = dataList.get(pos - 1);
+                BEntry next = prev.getNext();
+                curr.setPrev(prev);
+                curr.setNext(next);
+                prev.setNext(curr);
+                if (next != null)
+                    next.setPrev(curr);
+            } else if (pos - 1 < 0 && pos + 1 < dataNode.getSize()) { //added in the beginning of the list
+                BEntry next = dataList.get(pos + 1);
+                BEntry prev = next.getPrev();
+                curr.setPrev(prev);
+                curr.setNext(next);
+                next.setPrev(curr);
+                if (prev != null)
+                    prev.setNext(curr);
+            } else { //first base case
+                //TODO: NOP?
+            }
+
             //add to global Linked list
             //except the first insert, all inserts will be in a non-empty array
-            if(dataNode.getSize() != 1)
-                insertInLinkedList(dataList.get(pos + 1), newEntry);
+//            if (dataNode.getSize() != 1)
+//                insertInLinkedList(dataList.get(pos + 1), newEntry);
 
         }
     }
@@ -85,11 +114,11 @@ public class TreeUtils {
     /*
     create a IdxNode
      */
-    public static TreeNode createIdxNode(TreeNode parentNode,  List<Double> indices, List<TreeNode> children) {
+    public static TreeNode createIdxNode(TreeNode parentNode, List<Double> indices, List<TreeNode> children) {
         TreeNode in = new TreeNode(false);
         in.setParentNode(parentNode);
         in.setIndices(indices);
-        for(TreeNode child : children){
+        for (TreeNode child : children) {
             child.setParentNode(in);
         }
         in.setChildren(children);
