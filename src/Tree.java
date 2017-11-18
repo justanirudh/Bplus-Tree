@@ -49,7 +49,7 @@ public class Tree {
             System.out.println("Children of root: ");
             for (TreeNode tn : root.getChildren()) {
                 System.out.println(tn);
-                System.out.println("It's children");
+                System.out.println("Its children");
                 for (TreeNode tnn : tn.getChildren()) {
                     System.out.print(tnn + " ");
                 }
@@ -75,7 +75,6 @@ public class Tree {
 
 //            see if overfull
             if (treeIdxNode.getSize() == k) {
-                //TODO: Implement this
 
                 //split indexlist and children list
                 List<Double> leftIdxList = new ArrayList<>(treeIdxNode.getIndices().subList(0, k / 2));
