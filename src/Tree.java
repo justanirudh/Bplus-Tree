@@ -45,6 +45,17 @@ public class Tree {
             loneIdxNode.getChildren().add(0, root);
             root.setParentNode(loneIdxNode);
             root = loneIdxNode;
+            System.out.println("root: " + root);
+            System.out.println("Children of root: ");
+            for (TreeNode tn : root.getChildren()) {
+                System.out.println(tn);
+                System.out.println("It's children");
+                for (TreeNode tnn : tn.getChildren()) {
+                    System.out.print(tnn + " ");
+                }
+                System.out.println();
+            }
+            System.out.println();
         } else {
 
             System.out.println("parent: " + treeIdxNode);
@@ -80,21 +91,23 @@ public class Tree {
                 //create new index node
                 List<Double> parentIdx = new ArrayList<>();
                 parentIdx.add(rightIdxList.get(0));
-                TreeNode newIdxNode = TreeUtils.createIdxNode(null, parentIdx, null);
+                TreeNode newIdxNode = TreeUtils.createIdxNode(null, parentIdx, new ArrayList<>());
                 rightIdxList.remove(0); //remove first index as that is now parent
                 TreeNode newChildNode = TreeUtils.createIdxNode(newIdxNode, rightIdxList, rightChildren);
 
                 //set child
                 newIdxNode.setChild(newChildNode); //set idx node's child to be the child idx node
 
-
+                //merge with parent
                 merge(treeIdxNode.getParentNode(), newIdxNode);
             }
 
             System.out.println("After insertion: " + treeIdxNode);
+            System.out.println("Children of old node");
             for (TreeNode tn : treeIdxNode.getChildren()) {
                 System.out.print(tn + " ");
             }
+            System.out.println();
         }
     }
 
@@ -130,7 +143,7 @@ public class Tree {
             //newIdxNode always will have singleton indices list and singleton children list
             List<Double> parentIdx = new ArrayList<>();
             parentIdx.add(right.get(0).getKey());
-            TreeNode newIdxNode = TreeUtils.createIdxNode(null, parentIdx, null);
+            TreeNode newIdxNode = TreeUtils.createIdxNode(null, parentIdx, new ArrayList<>());
             TreeNode newDataNode = TreeUtils.createDataNode(newIdxNode, right, null, null);
             newIdxNode.setChild(newDataNode); //set idx node's child to be the data node
 

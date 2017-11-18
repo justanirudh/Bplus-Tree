@@ -62,6 +62,9 @@ public class TreeUtils {
         TreeNode in = new TreeNode(false);
         in.setParentNode(parentNode);
         in.setIndices(indices);
+        for(TreeNode child : children){
+            child.setParentNode(in);
+        }
         in.setChildren(children);
         return in;
     }
