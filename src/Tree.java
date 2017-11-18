@@ -32,7 +32,7 @@ public class Tree {
     -- children = prepend the current root to the children list
     TADAAAA!
      */
-    private void merge(TreeNode treeIdxNode, TreeNode newIdxNode) {
+    private void merge(TreeNode treeIdxNode, TreeNode loneIdxNode) {
         //new node is an idx node with a singleton idx list and children list (that can have idxnodes or datanodes)
         //treeNode can be either datanode or idx node
         if (treeIdxNode == null) {
@@ -42,16 +42,16 @@ public class Tree {
             - make newNode as the new root
              */
             System.out.println("parentNode is null");
-            newIdxNode.getChildren().add(0, root);
-            root.setParentNode(newIdxNode);
-            root = newIdxNode;
+            loneIdxNode.getChildren().add(0, root);
+            root.setParentNode(loneIdxNode);
+            root = loneIdxNode;
         } else {
 
             System.out.println("parent: " + treeIdxNode);
 
             //get the idx and the child from new node
-            double key = newIdxNode.getIndices().get(0);
-            TreeNode child = newIdxNode.getChildren().get(0);
+            double key = loneIdxNode.getIndices().get(0);
+            TreeNode child = loneIdxNode.getChildren().get(0);
 
             //make changes to new parent: search the correct idx to add idx and child
             int idxIdx = TreeUtils.searchIdxList(treeIdxNode.getIndices(), key) + 1;
@@ -59,17 +59,40 @@ public class Tree {
             int idxData = idxIdx + 1;
             treeIdxNode.getChildren().add(idxData, child);
 
-            //make changes to new child: set new parent for the child
+            //make changes to child: set new parent for the child
             child.setParentNode(treeIdxNode);
 
-            //see if overfull
+//            see if overfull
             if (treeIdxNode.getSize() == k) {
                 //TODO: Implement this
-                //TODO: make sure to copy split lists, not just assign split lists
+
+                //split indexlist and children list
+                List<Double> leftIdxList = new ArrayList<>(treeIdxNode.getIndices().subList(0, k / 2));
+                List<Double> rightIdxList = new ArrayList<>(treeIdxNode.getIndices().subList(k / 2, k));
+
+                List<TreeNode> leftChildren = new ArrayList<>(treeIdxNode.getChildren().subList(0, (k + 1) / 2));
+                List<TreeNode> rightChildren = new ArrayList<>(treeIdxNode.getChildren().subList((k + 1) / 2, k + 1));
+
+                //fix current treenode
+                treeIdxNode.setIndices(leftIdxList);
+                treeIdxNode.setChildren(leftChildren);
+
+                //create new index node
+                List<Double> parentIdx = new ArrayList<>();
+                parentIdx.add(rightIdxList.get(0));
+                TreeNode newIdxNode = TreeUtils.createIdxNode(null, parentIdx, null);
+                rightIdxList.remove(0); //remove first index as that is now parent
+                TreeNode newChildNode = TreeUtils.createIdxNode(newIdxNode, rightIdxList, rightChildren);
+
+                //set child
+                newIdxNode.setChild(newChildNode); //set idx node's child to be the child idx node
+
+
+                merge(treeIdxNode.getParentNode(), newIdxNode);
             }
 
             System.out.println("After insertion: " + treeIdxNode);
-            for(TreeNode tn : treeIdxNode.getChildren()){
+            for (TreeNode tn : treeIdxNode.getChildren()) {
                 System.out.print(tn + " ");
             }
         }
@@ -95,17 +118,20 @@ public class Tree {
             System.out.println("Overfull node");
 
             //split list into 2 roughly equal lists
+            //TODO: change entries.size to k
             List<BEntry> entries = dataNode.getDataList();
-            List<BEntry> head = new ArrayList<>(entries.subList(0, entries.size() / 2));
-            List<BEntry> tail = new ArrayList<>(entries.subList(entries.size() / 2, entries.size()));
+            List<BEntry> left = new ArrayList<>(entries.subList(0, entries.size() / 2));
+            List<BEntry> right = new ArrayList<>(entries.subList(entries.size() / 2, entries.size()));
 
             //change current datanode with smaller list of entries
-            dataNode.setDataList(head);
+            dataNode.setDataList(left);
 
             //create a new TreeNode (Idx Node) that has a child (data node)
             //newIdxNode always will have singleton indices list and singleton children list
-            TreeNode newIdxNode = TreeUtils.createIdxNode(null, tail.get(0).getKey(), null);
-            TreeNode newDataNode = TreeUtils.createDataNode(newIdxNode, tail, null, null);
+            List<Double> parentIdx = new ArrayList<>();
+            parentIdx.add(right.get(0).getKey());
+            TreeNode newIdxNode = TreeUtils.createIdxNode(null, parentIdx, null);
+            TreeNode newDataNode = TreeUtils.createDataNode(newIdxNode, right, null, null);
             newIdxNode.setChild(newDataNode); //set idx node's child to be the data node
 
             //merge with parent

@@ -58,11 +58,9 @@ public class TreeUtils {
     /*
     create a IdxNode
      */
-    public static TreeNode createIdxNode(TreeNode parentNode, double idx, List<TreeNode> children) {
-        //TODO: Remove children, parentNode as always null for a new idx node?
-        List<Double> indices = new ArrayList<>();
-        indices.add(idx);
+    public static TreeNode createIdxNode(TreeNode parentNode,  List<Double> indices, List<TreeNode> children) {
         TreeNode in = new TreeNode(false);
+        in.setParentNode(parentNode);
         in.setIndices(indices);
         in.setChildren(children);
         return in;
