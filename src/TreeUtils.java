@@ -8,6 +8,25 @@ import java.util.stream.Collectors;
  */
 public class TreeUtils {
 
+
+    /*
+    add new entry to linked list
+     */
+    private static void insertInLinkedList(BEntry currEntry, BEntry newEntry){
+        BEntry prevEntry = currEntry.getPrev();
+        if(prevEntry == null){
+            currEntry.setPrev(newEntry);
+            newEntry.setNext(currEntry);
+        }
+        else{
+            prevEntry.setNext(newEntry);
+            newEntry.setPrev(prevEntry);
+            currEntry.setPrev(newEntry);
+            newEntry.setNext(currEntry);
+        }
+    }
+
+
     /*
     if key is in indices, it returns that idx
     if key is not in indices, it returns the idx of the largest element smaller than key
@@ -29,6 +48,7 @@ public class TreeUtils {
 
     /*
     insert the key value pair in a key-sorted fashion
+    also, insert in the data linked list
     if key already exists, prepend the value to the BEntry's value list
      */
     public static void insertInDataNode(TreeNode dataNode, double key, String value) {
@@ -38,7 +58,14 @@ public class TreeUtils {
             dataList.get(idx).getValues().add(0, value);
         } else {
             int pos = -idx - 1;
-            dataList.add(pos, new BEntry(key, value));
+            BEntry newEntry = new BEntry(key, value);
+            //add to per datanode array
+            dataList.add(pos, newEntry);
+            //add to global Linked list
+            //except the first insert, all inserts will be in a non-empty array
+            if(dataNode.getSize() != 1)
+                insertInLinkedList(dataList.get(pos + 1), newEntry);
+
         }
     }
 

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
  * Created by paanir on 11/16/17.
  */
 public class TreeNode {
+    //TODO: remove prev and next
     private boolean isDataNode; //data node or index node
     private TreeNode parentNode;
     //for index node

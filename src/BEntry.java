@@ -7,12 +7,30 @@ import java.util.List;
 public class BEntry {
     private double key;
     private List<String> values;
+    private BEntry next;
+    private BEntry prev;
 
     public BEntry(double key, String value) {
         this.key = key;
         List<String> values = new ArrayList<>();
         values.add(value);
         this.values = values;
+    }
+
+    public BEntry getPrev() {
+        return prev;
+    }
+
+    public void setPrev(BEntry prev) {
+        this.prev = prev;
+    }
+
+    public BEntry getNext() {
+        return next;
+    }
+
+    public void setNext(BEntry next) {
+        this.next = next;
     }
 
     public double getKey() {
