@@ -164,8 +164,34 @@ public class Tree {
     }
 
     public List<BEntry> search(double start, double finish) {
-        //TODO: implement this
-        return null;
+        /*
+        - go to the best node for insertion of start
+         - go the the key itself or the smallest node greater than key
+         - traverse in LL until you either reach end or the number exceeds finish
+         */
+        TreeNode dataNode = TreeUtils.searchForDataNode(start, root);
+        List<BEntry> dataList = dataNode.getDataList();
+        int idx = TreeUtils.searchDataList(dataList, start);
+
+        List<BEntry> res = new ArrayList<>();
+        BEntry currEntry;
+
+        if (idx >= 0) //start exists
+            currEntry = dataList.get(idx);
+        else {
+            idx = -idx - 1;
+            if (idx >= 0 && idx < dataNode.getSize()) //next bigger
+                currEntry = dataList.get(idx);
+            else //biggest in the current list
+                currEntry = dataList.get(idx - 1).getNext();
+        }
+
+        while (currEntry != null && currEntry.getKey() <= finish) {
+            res.add(currEntry);
+            currEntry = currEntry.getNext();
+        }
+
+        return res;
     }
 
 }

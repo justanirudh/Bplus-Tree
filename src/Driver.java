@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class Driver {
     public static void main(String[] args) {
 
-        final String FILENAME = "/Users/paanir/B+Tree/input3.txt";
+        final String FILENAME = "/Users/paanir/B+Tree/input3-1.txt";
         BufferedReader br = null;
         FileReader fr = null;
 
