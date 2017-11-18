@@ -47,6 +47,31 @@ public class Tree {
             root = newIdxNode;
         } else {
 
+            System.out.println("parent: " + treeIdxNode);
+
+            //get the idx and the child from new node
+            double key = newIdxNode.getIndices().get(0);
+            TreeNode child = newIdxNode.getChildren().get(0);
+
+            //make changes to new parent: search the correct idx to add idx and child
+            int idxIdx = TreeUtils.searchIdxList(treeIdxNode.getIndices(), key) + 1;
+            treeIdxNode.getIndices().add(idxIdx, key);
+            int idxData = idxIdx + 1;
+            treeIdxNode.getChildren().add(idxData, child);
+
+            //make changes to new child: set new parent for the child
+            child.setParentNode(treeIdxNode);
+
+            //see if overfull
+            if (treeIdxNode.getSize() == k) {
+                //TODO: Implement this
+                //TODO: make sure to copy split lists, not just assign split lists
+            }
+
+            System.out.println("After insertion: " + treeIdxNode);
+            for(TreeNode tn : treeIdxNode.getChildren()){
+                System.out.print(tn + " ");
+            }
         }
     }
 
