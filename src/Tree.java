@@ -130,20 +130,19 @@ public class Tree {
             System.out.println("Overfull node");
 
             //split list into 2 roughly equal lists
-            //TODO: change entries.size to k
-            List<BEntry> entries = dataNode.getDataList();
-            List<BEntry> left = new ArrayList<>(entries.subList(0, entries.size() / 2));
-            List<BEntry> right = new ArrayList<>(entries.subList(entries.size() / 2, entries.size()));
+            List<BEntry> dataList = dataNode.getDataList();
+            List<BEntry> leftDataList = new ArrayList<>(dataList.subList(0, k / 2));
+            List<BEntry> rightDataList = new ArrayList<>(dataList.subList(k / 2, k));
 
             //change current datanode with smaller list of entries
-            dataNode.setDataList(left);
+            dataNode.setDataList(leftDataList);
 
             //create a new TreeNode (Idx Node) that has a child (data node)
             //newIdxNode always will have singleton indices list and singleton children list
             List<Double> parentIdx = new ArrayList<>();
-            parentIdx.add(right.get(0).getKey());
+            parentIdx.add(rightDataList.get(0).getKey());
             TreeNode newIdxNode = TreeUtils.createIdxNode(null, parentIdx, new ArrayList<>());
-            TreeNode newDataNode = TreeUtils.createDataNode(newIdxNode, right, null, null);
+            TreeNode newDataNode = TreeUtils.createDataNode(newIdxNode, rightDataList, null, null);
             newIdxNode.setChild(newDataNode); //set idx node's child to be the data node
 
             //merge with parent
