@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,24 +6,6 @@ import java.util.stream.Collectors;
  * Created by paanir on 11/16/17.
  */
 public class TreeUtils {
-
-
-    /*
-    add new entry to linked list
-     */
-    private static void insertInLinkedList(BEntry currEntry, BEntry newEntry) {
-        BEntry prevEntry = currEntry.getPrev();
-        if (prevEntry == null) {
-            currEntry.setPrev(newEntry);
-            newEntry.setNext(currEntry);
-        } else {
-            prevEntry.setNext(newEntry);
-            newEntry.setPrev(prevEntry);
-            currEntry.setPrev(newEntry);
-            newEntry.setNext(currEntry);
-        }
-    }
-
 
     /*
     if key is in indices, it returns that idx
@@ -38,6 +19,9 @@ public class TreeUtils {
             return -idx - 2;
     }
 
+    /*
+    search the data list
+     */
     public static int searchDataList(List<BEntry> dataList, double key) {
         return Collections.binarySearch(dataList
                 .stream()
@@ -60,7 +44,6 @@ public class TreeUtils {
             BEntry newEntry = new BEntry(key, value);
             //add to per datanode array
             dataList.add(pos, newEntry);
-            //TODO: code duplication
 
             //add to Linked List
             BEntry curr = dataList.get(pos);
@@ -88,13 +71,8 @@ public class TreeUtils {
                 if (prev != null)
                     prev.setNext(curr);
             } else { //first base case
-                //TODO: NOP?
+                //NOP
             }
-
-            //add to global Linked list
-            //except the first insert, all inserts will be in a non-empty array
-//            if (dataNode.getSize() != 1)
-//                insertInLinkedList(dataList.get(pos + 1), newEntry);
 
         }
     }
@@ -104,10 +82,6 @@ public class TreeUtils {
     returns a node that either has the key or should have the key
      */
     public static TreeNode searchForDataNode(double key, TreeNode currNode) {
-        System.out.println("curr node: " + currNode);
-//        for(TreeNode ch : currNode.getChildren())
-//            System.out.print(ch + "|||");
-//        System.out.println();
         if (currNode.isDataNode())
             return currNode;
         else {
@@ -133,13 +107,10 @@ public class TreeUtils {
     /*
     create a DataNode
      */
-    public static TreeNode createDataNode(TreeNode parentNode, List<BEntry> dataList, TreeNode prev, TreeNode next) {
-        //TODO: Remove prev, next as always null?
+    public static TreeNode createDataNode(TreeNode parentNode, List<BEntry> dataList) {
         TreeNode dn = new TreeNode(true);
         dn.setParentNode(parentNode);
         dn.setDataList(dataList);
-        dn.setPrev(prev);
-        dn.setNext(next);
         return dn;
     }
 }

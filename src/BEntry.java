@@ -37,10 +37,6 @@ public class BEntry {
         return key;
     }
 
-    public void setKey(double key) {
-        this.key = key;
-    }
-
     public List<String> getValues() {
         return values;
     }

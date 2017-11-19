@@ -24,7 +24,6 @@ public class Driver {
             //TODO: all output should go to a file named output_file.txt
             String line;
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
                 if (StringUtils.isInsert(line)) { //insert
                     BPair pair = StringUtils.getInsertPair(line);
                     tree.insert(pair.getKey(), pair.getValue());
@@ -41,9 +40,8 @@ public class Driver {
                             .map(BEntry::toString)
                             .collect(Collectors.toList());
                     System.out.println(String.join(",", bEntries));
-                } /*else
-                    throw new InvalidInputException(line + " is not a valid input");*/
-                System.out.println();
+                } else
+                    throw new InvalidInputException(line + " is not a valid input");
             }
 
         } catch (IOException e) {

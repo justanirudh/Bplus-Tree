@@ -6,16 +6,13 @@ import java.util.stream.Collectors;
  * Created by paanir on 11/16/17.
  */
 public class TreeNode {
-    //TODO: remove prev and next
     private boolean isDataNode; //data node or index node
     private TreeNode parentNode;
     //for index node
     private List<Double> indices; // size <= k - 1
     private List<TreeNode> children; // size <= k
-    //populated for data node
+    //for data node
     private List<BEntry> dataList; //size <= k - 1
-    private TreeNode prev;
-    private TreeNode next;
 
     public TreeNode(boolean isDataNode) {
         this.isDataNode = isDataNode;
@@ -33,10 +30,6 @@ public class TreeNode {
 
     public boolean isDataNode() {
         return isDataNode;
-    }
-
-    public void setDataNode(boolean dataNode) {
-        isDataNode = dataNode;
     }
 
     public TreeNode getParentNode() {
@@ -77,22 +70,6 @@ public class TreeNode {
         this.dataList = dataList;
     }
 
-    public TreeNode getPrev() {
-        return prev;
-    }
-
-    public void setPrev(TreeNode prev) {
-        this.prev = prev;
-    }
-
-    public TreeNode getNext() {
-        return next;
-    }
-
-    public void setNext(TreeNode next) {
-        this.next = next;
-    }
-
     @Override
     public String toString() {
         return "TreeNode{" +
@@ -102,8 +79,6 @@ public class TreeNode {
                 ", parentNode=" + parentNode +
                 ", indices=" + String.join(",", indices.stream().map(Object::toString).collect(Collectors.toList())) +
                 ", dataList=" + String.join(",", dataList.stream().map(BEntry::toString).collect(Collectors.toList())) +
-                ", prev=" + prev +
-                ", next=" + next +
                 '}';
     }
 }
