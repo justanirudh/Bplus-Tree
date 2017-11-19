@@ -1,6 +1,11 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,18 +15,19 @@ import java.util.stream.Collectors;
 public class Driver {
     public static void main(String[] args) {
 
-        final String FILENAME = "/Users/paanir/B+Tree/input6.txt";
+        final String INPUT_FILENAME = "/Users/paanir/B+Tree/input6.txt";
+        final String OUTPUT_FILENAME = "output_file.txt";
         BufferedReader br = null;
         FileReader fr = null;
 
         try {
-            fr = new FileReader(FILENAME);
+            fr = new FileReader(INPUT_FILENAME);
             br = new BufferedReader(fr);
+            List<String> outputLines = new ArrayList<>();
 
             int k = Integer.parseInt(br.readLine().trim());
             Tree tree = new Tree(k);
 
-            //TODO: all output should go to a file named output_file.txt
             String line;
             while ((line = br.readLine()) != null) {
                 if (StringUtils.isInsert(line)) { //insert
@@ -31,7 +37,7 @@ public class Driver {
                 } else if (StringUtils.isSearch(line)) { //search
                     double key = StringUtils.getSearchKey(line);
                     List<String> values = tree.search(key);
-                    System.out.println(String.join(",", values));
+                    outputLines.add(String.join(",", values));
 
                 } else if (StringUtils.isSearchRange(line)) { //search range
                     double[] range = StringUtils.getSearchRange(line);
@@ -39,10 +45,13 @@ public class Driver {
                             .stream()
                             .map(BEntry::toString)
                             .collect(Collectors.toList());
-                    System.out.println(String.join(",", bEntries));
+                    outputLines.add(String.join(",", bEntries));
                 } else
                     throw new InvalidInputException(line + " is not a valid input");
             }
+
+            Path file = Paths.get(OUTPUT_FILENAME);
+            Files.write(file, outputLines, Charset.forName("UTF-8"));
 
         } catch (IOException e) {
             e.printStackTrace();
