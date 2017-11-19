@@ -15,7 +15,12 @@ import java.util.stream.Collectors;
 public class Driver {
     public static void main(String[] args) {
 
-        final String INPUT_FILENAME = "/Users/paanir/B+Tree/input6.txt";
+        if(args.length == 0){
+            throw new InvalidInputException("include path of the input file");
+        }
+
+        //  /Users/paanir/B+Tree/input3.txt
+        final String INPUT_FILENAME = args[0];
         final String OUTPUT_FILENAME = "output_file.txt";
         BufferedReader br = null;
         FileReader fr = null;

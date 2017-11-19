@@ -100,7 +100,6 @@ public class Tree {
         this.k = k;
     }
 
-
     public void insert(double key, String value) {
         TreeNode dataNode = TreeUtils.searchForDataNode(key, root);
         TreeUtils.insertInDataNode(dataNode, key, value);
