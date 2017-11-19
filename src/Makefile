@@ -19,4 +19,4 @@ default: classes
 classes: $(CLASSES:.java=.class)
 
 clean:
-	$(RM) *.class
+	rm -rf *.class output_file.txt
