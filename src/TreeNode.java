@@ -98,6 +98,7 @@ public class TreeNode {
         return "TreeNode{" +
                 "isDataNode=" + isDataNode +
                 ", size=" + getSize() +
+                ", children size=" + children.size() +
                 ", parentNode=" + parentNode +
                 ", indices=" + String.join(",", indices.stream().map(Object::toString).collect(Collectors.toList())) +
                 ", dataList=" + String.join(",", dataList.stream().map(BEntry::toString).collect(Collectors.toList())) +

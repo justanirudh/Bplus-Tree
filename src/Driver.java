@@ -1,5 +1,3 @@
-import exceptions.InvalidInputException;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,7 +10,7 @@ import java.util.stream.Collectors;
 public class Driver {
     public static void main(String[] args) {
 
-        final String FILENAME = "/Users/paanir/B+Tree/input3-1.txt";
+        final String FILENAME = "/Users/paanir/B+Tree/input6.txt";
         BufferedReader br = null;
         FileReader fr = null;
 
@@ -45,6 +43,7 @@ public class Driver {
                     System.out.println(String.join(",", bEntries));
                 } /*else
                     throw new InvalidInputException(line + " is not a valid input");*/
+                System.out.println();
             }
 
         } catch (IOException e) {

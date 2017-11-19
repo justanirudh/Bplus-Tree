@@ -60,6 +60,7 @@ public class TreeUtils {
             BEntry newEntry = new BEntry(key, value);
             //add to per datanode array
             dataList.add(pos, newEntry);
+            //TODO: code duplication
 
             //add to Linked List
             BEntry curr = dataList.get(pos);
@@ -103,6 +104,10 @@ public class TreeUtils {
     returns a node that either has the key or should have the key
      */
     public static TreeNode searchForDataNode(double key, TreeNode currNode) {
+        System.out.println("curr node: " + currNode);
+//        for(TreeNode ch : currNode.getChildren())
+//            System.out.print(ch + "|||");
+//        System.out.println();
         if (currNode.isDataNode())
             return currNode;
         else {
